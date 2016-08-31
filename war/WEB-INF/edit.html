@@ -1,0 +1,83 @@
+<div class="row">
+<!-- Left Space for search--> 	
+	<div class="col-md-2"> {{displayAction}}</div>
+	{{displayvalue}}
+	
+<!-- Search Part--> 		
+	<div class="well col-md-8" >
+			<form>
+				<div class="row form-group">
+							
+							<!-- <div class="pull-right"> -->
+							<div class="col-md-2">
+							<ul class = "pager">
+							   <li class = "previous"><a href = "#/">&larr; Back</a></li>
+							</ul>
+							</div>
+							<div>
+								 <button class="btn btn-primary btn-md" type="button">&larr;  Back</button>
+							</div>
+							<div class="pull-right">
+									 <button class="btn btn-primary btn-md" type="button">Clear</button> 
+									 <button class="btn btn-primary btn-md" type="button">Save</button>
+							</div>
+				</div>
+				
+				<div class="row " >
+					<div class="col-md-5 form-group">
+						<label> Project Name:<label>
+						<input type="text"/>
+					</div>
+					<div class="col-md-4 form-group">
+						<label> Start Date:<label>
+						<input type="text"/>	
+					</div>
+					<div class="col-md-3 form-group">
+						<label> Owner:<label>
+						<input type="select"/>	
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-5">
+						<label> Establishment:<label>
+						<input type="text"/>
+					</div>
+					<div class="col-md-7">
+						<input type="radio"> On or Before
+						<input type="radio"> On
+						<input type="radio"> On or After
+						<input type="checkbox"/> Open Only
+					</div>
+			 
+				</div>
+			</form>
+	</div>
+	
+	
+
+
+<!-- Right Space for search--> 	
+	<div class="col-md-2"> Right Margin</div>
+
+ </div>
+	
+	
+	
+	
+	
+
+
+<div class='container-fluid typeahead-demo row'>
+    <pre>Model: {{asyncSelected}}</pre>
+    <input type="text" ng-model="asyncSelected" uib-typeahead="address as address.bounds.northeast.lat for address in getLocationCust($viewValue)" typeahead-loading="loadingLocations" typeahead-template-url="customTemplate.html" typeahead-no-results="noResults" class="form-control">
+    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+    <div ng-show="noResults">
+      <i class="glyphicon glyphicon-remove"></i> No Results Found
+    </div>
+ 
+</div>
+	
+	
+	</div>  <!-- Container Div -->	
+ 

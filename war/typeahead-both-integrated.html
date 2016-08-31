@@ -1,0 +1,133 @@
+<!doctype html>
+<html ng-app="workflowApp">
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.1.0.js"></script>
+    <script src="example.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+
+<style>
+  .typeahead-demo .custom-popup-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    background-color: #f9f9f9;
+  }
+
+  .typeahead-demo .custom-popup-wrapper > .message {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    color: #868686;
+  }
+
+  .typeahead-demo .custom-popup-wrapper > .dropdown-menu {
+    position: static;
+    float: none;
+    display: block;
+    min-width: 160px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  
+   div {
+	border-color:red;
+	 
+ } 
+ 
+ 
+</style>
+
+<script type="text/ng-template" id="customTemplate.html">
+  <a  style="display: inline">
+     <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+  </a>
+     <a href="http://www.google.com?q={{match.model.bounds.northeast.lat}}" style="display: inline">{{match.model.bounds.northeast.lat}}</a>
+</script>
+
+
+<div class="container-fluid" >
+<!-- Left Space for search--> 	
+	<div class="col-md-2"> Empty</div>
+	
+<!-- Search Part--> 		
+	<div class="well col-md-8" >
+			<form>
+				<div class="row form-group">
+							
+							<!-- <div class="pull-right"> -->
+							<div class="pull-right">
+									 <button class="btn btn-primary btn-md" type="button">Clear</button> 
+									 <button class="btn btn-primary btn-md" type="button">Add</button>
+									 <button class="btn btn-primary btn-md" type="button">Search</button>
+									 <!-- button class="btn btn-primary btn-sm" type="button">Add</button> -->
+							</div>
+				</div>
+				
+				<div class="row " >
+					<div class="col-md-5 form-group">
+						<label> Project Name:<label>
+						<input type="text"/>
+					</div>
+					<div class="col-md-4 form-group">
+						<label> Start Date:<label>
+						<input type="text"/>	
+					</div>
+					<div class="col-md-3 form-group">
+						<label> Owner:<label>
+						<input type="select"/>	
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-5">
+						<label> Establishment:<label>
+						<input type="text"/>
+					</div>
+					<div class="col-md-7">
+						<input type="radio"> On or Before
+						<input type="radio"> On
+						<input type="radio"> On or After
+						<input type="checkbox"/> Open Only
+					</div>
+			 
+				</div>
+			</form>
+	</div>
+	
+	
+
+
+<!-- Right Space for search--> 	
+	<div class="col-md-2"> Right Margin</div>
+
+	
+	
+	
+	
+	
+
+
+<div class='container-fluid typeahead-demo' ng-controller="TypeaheadCtrl">
+    <pre>Model: {{asyncSelected}}</pre>
+    <input type="text" ng-model="asyncSelected" uib-typeahead="address as address.bounds.northeast.lat for address in getLocationCust($viewValue)" typeahead-loading="loadingLocations" typeahead-template-url="customTemplate.html" typeahead-no-results="noResults" class="form-control">
+    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+    <div ng-show="noResults">
+      <i class="glyphicon glyphicon-remove"></i> No Results Found
+    </div>
+ 
+</div>
+	
+	
+	</div>  <!-- Container Div -->	
+	
+	
+  </body>
+</html>

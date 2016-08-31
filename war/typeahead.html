@@ -1,0 +1,167 @@
+ 
+
+<style>
+  .typeahead-demo .custom-popup-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    background-color: #f9f9f9;
+  }
+
+  .typeahead-demo .custom-popup-wrapper > .message {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    color: #868686;
+  }
+
+  .typeahead-demo .custom-popup-wrapper > .dropdown-menu {
+    position: static;
+    float: none;
+    display: block;
+    min-width: 160px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  
+   div {
+	border-color:red;
+ } 
+ 
+ 
+</style>
+
+<script type="text/ng-template" id="customTemplate.html">
+  <a  style="display: inline">
+     <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+  </a>
+     <a href="#edit?id={{match.model.id}}" style="display: inline;color:blue">Edit</a>
+</script>
+
+
+<div class="container-fluid">
+<div class="row">
+<!-- Left Space for search--> 	
+	<div class="col-md-2"> </div>
+	
+	
+<!-- Search Part--> 		
+	<div class="well col-md-8" >
+			<form>
+				<div class="row form-group">
+							
+							<!-- <div class="pull-right"> -->
+							<div class="pull-right">
+									 <button class="btn btn-primary btn-sm" type="button">Clear</button> 
+									 <button class="btn btn-primary btn-sm" type="button" ng-click="editthis()">Add</button>
+									 <button class="btn btn-primary btn-sm" type="button" ng-click="searchthis()">Search</button>
+									 <!-- button class="btn btn-primary btn-sm" type="button">Add</button> -->
+							</div>
+				</div>
+				
+				<div class="row" >
+					
+					<div class="col-md-6 form-group">
+						<label class="col-md-4 control-label">Project Name:</label>
+						<div class="col-md-8">
+						<input type="text" ng-model="asyncSelected" uib-typeahead="address as address.projectName for address in getLocationCust($viewValue)" typeahead-loading="loadingLocations" typeahead-template-url="customTemplate.html" typeahead-no-results="noResults" class="form-control input-sm">
+    						<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+    						<div ng-show="noResults">
+      							<i class="glyphicon glyphicon-remove"></i> No Results Found
+    						</div>
+    					</div>
+ 
+					</div>
+					
+					<div class="col-md-6 form-group">
+						<label class="col-md-4 control-label"> Owner:</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control input-sm"/>	
+						</div>
+					</div>
+			    </div>
+			    
+			    <div class="row">		
+				
+					<div class="col-md-6 form-group">
+						<label class="col-md-4 control-label"> Start Date:</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control input-sm"/>	
+						</div>
+					</div>
+					
+					
+					<div class="col-md-6">
+						<label class="col-md-4 control-label"> Establishment:</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control input-sm"/>
+						</div>
+					</div>
+				</div>
+				<div class="row">	
+					  <div class="pull-right col-md-10">
+				        <input type="radio"> On or Before
+						<input type="radio"> On
+						<input type="radio"> On or After
+						<input type="checkbox"/> Open Only
+					</div>
+			 
+				</div>
+			</form>
+	</div>
+	
+	
+
+
+<!-- Right Space for search--> 	
+	<div class="col-md-2"> </div>
+
+ </div>
+	
+	
+	
+<!--  
+
+<div class='container-fluid typeahead-demo row'>
+    <pre>Model: {{asyncSelected}}</pre>
+    <input type="text" ng-model="asyncSelected" uib-typeahead="address as address.bounds.northeast.lat for address in getLocationCust($viewValue)" typeahead-loading="loadingLocations" typeahead-template-url="customTemplate.html" typeahead-no-results="noResults" class="form-control">
+    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+    <div ng-show="noResults">
+      <i class="glyphicon glyphicon-remove"></i> No Results Found
+    </div>
+ 
+</div>
+	
+ -->
+ 
+ <!-- results section-->
+ <div class="col-md-1"></div>
+ 
+ <div class="row col-md-10 well" ng-show="displayResults">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+			  <th>Project Name</th>
+			  <th>Project Owner</th>
+			  <th>Begin Date</th>
+			</tr>
+		</thead>
+	<tbody>
+		<tr ng-repeat="item in searchresults">
+			<td class="col-md3"><a href="#/edit?id={{item.id}}">{{item.projectName}}</a></td>
+			<td class="col-md3">{{item.projectOwner}}</td>
+			<td class="col-md3">{{item.beginDate}}</td>
+		</tr>
+	</tbody>	
+	</table>		
+ 
+ </div>
+ 
+ <div class="col-md-1></div>
+ 
+ 
+	</div>  <!-- Container Div -->	
+ 

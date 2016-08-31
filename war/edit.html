@@ -1,0 +1,98 @@
+<div class="row">
+<!-- Left Space for search--> 	
+	<div class="col-md-2">{{displayAction}} </div>
+	
+<!-- Search Part--> 		
+	<div class="well col-md-8" >
+			<div class="row" ng-show="recordSaved"> 
+				<div class="alert alert-success col-md-3 pull-right  alert-dismissible fade in">
+					<strong>Record Saved!</strong>
+				</div>
+			</div>
+			
+			<form>
+				<div class="row form-group">
+					<div class="pull-right">
+							    	<a href = "#/">&larr; Back</a> 
+ 									 <button class="btn btn-primary btn-sm" ng-click="clear()">Clear</button> 
+									 <button class="btn btn-primary btn-sm" ng-click="save()">Save</button>
+							</div>
+				</div>
+				
+					
+				<div class="row" >
+					<div class="col-md-6 form-group">
+						<label class="col-md-4 control-label"> Project Name:</label>
+						<div class="col-md-8">
+							<input type="text" ng-model="pname" class="form-control input-sm"/>
+						</div>
+					</div>
+					
+					<div class="col-md-6 form-group">
+						<label class="col-md-4 control-label"> Owner:</label>
+						<div class="col-md-8">
+							<input type="select" ng-model="powner" class="form-control input-sm"/>	
+						</div>
+					</div>
+				</div>
+				
+					
+				<div class="row" >
+					<div class="col-md-12 form-group">
+						<label class="col-md-2 control-label"> Description:</label>
+						<div class="col-md-10">
+							<textarea class="form-control input-sm"></textarea>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					
+					<div class="col-md-12 form-group">
+						<label class="col-md-2 control-label"> Comments:</label>
+						<div class="col-md-10">
+							<textarea class="form-control input-sm"></textarea>	
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label class="col-md-4 control-label"> Start Date:</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control input-sm"/>
+						</div>	
+					</div>
+					
+					<div class="col-md-6">
+						<label class="col-md-4 control-label"> Establishment:</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control input-sm"/>
+						</div>
+					</div>
+				</div>
+				<div class="row">	
+					  <div class="pull-right col-md-10">
+				        <input type="radio"> On or Before
+						<input type="radio"> On
+						<input type="radio"> On or After
+						<input type="checkbox"/> Open Only
+					</div>
+			 
+				</div>
+			</form>
+	</div>
+	
+	
+
+
+<!-- Right Space for search--> 	
+	<div class="col-md-2"> </div>
+
+ </div>
+	
+	
+	
+	</div>  <!-- Container Div -->	
+ 
