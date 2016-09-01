@@ -70,6 +70,8 @@ public class TemplateServlet extends HttpServlet {
 					String json = JSON.toJSONString(results);
 					resp.getWriter().print(json);
 					resp.getWriter().print(json);
+				} else {
+					resp.getWriter().print("No Results");
 				}
 			 
 			} finally {

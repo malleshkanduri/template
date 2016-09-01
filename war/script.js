@@ -42,6 +42,11 @@ workflowApp.config(function($routeProvider) {
 		$scope.recordSaved=false;
 		
 		
+		
+		$scope.displayGrid = false;  //display bottem grid {milestones, workflows...}
+		$scope.mileStoreResults="";
+		$scope.workStoreResults="";
+
         $scope.clear = function() {
         	  $scope.pname="";
               $scope.powner="";			
@@ -72,8 +77,10 @@ workflowApp.config(function($routeProvider) {
         } else {
         	console.log('Fetch ID')
         
-       
-     	return $http.get('http://template-141501.appspot.com/template?action=searchById', {
+			$scope.displayGrid=true;
+
+			//Get Project Details
+			$http.get('http://template-141501.appspot.com/template?action=searchById', {
 		      params: {
 		        q: $routeParams.id,
 		      }
@@ -88,9 +95,31 @@ workflowApp.config(function($routeProvider) {
 		    	$scope.comment=response.data.comment
 		    	$scope.description=response.data.description
 		    	
-		    }
-		    );
-        	
+		    });
+
+			//Get MileStone Details
+			$http.get('http://template-141501.appspot.com/template?action=searchById&module=ms', {
+		      params: {
+		        q: $routeParams.id,
+		      }
+		    }).then(function(response){
+		    	console.log(response);
+		    	
+		    	$scope.mileStoreResults = response.data;
+		    	
+		    });
+
+			//Get workflow Details
+			$http.get('http://template-141501.appspot.com/template?action=searchById&module=wf', {
+		      params: {
+		        q: $routeParams.id,
+		      }
+		    }).then(function(response){
+		    	console.log(response);
+		    	
+		    	$scope.workStoreResults = response.data;
+		    	
+		    });
         	
         }
         
