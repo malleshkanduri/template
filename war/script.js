@@ -36,6 +36,9 @@ workflowApp.config(function($routeProvider) {
     workflowApp.controller('editController', function($scope, $http, $routeParams, $location, $timeout) {
         $scope.pname="";
         $scope.powner="";
+        $scope.description=""
+        $scope.comment=""
+        	
 		$scope.recordSaved=false;
 		
 		
@@ -48,7 +51,9 @@ workflowApp.config(function($routeProvider) {
             return $http.get('http://template-141501.appspot.com/template?action=add', {
   		      params: {
   		        pname:$scope.pname,
-  		        powner:$scope.powner,  
+  		        powner:$scope.powner,
+  		        comment:$scope.comment,
+  		        des:$scope.description,
   		        
   		      }
   		    }).then(function(response){
@@ -76,11 +81,12 @@ workflowApp.config(function($routeProvider) {
 
 		    	console.log(response);
 
-		    	console.log(response.data);
-		    	console.log(response.data.projectOwner);
-		    	console.log(response.data.projectName);
+		    	console.log(response.data); 
+		    	
 		    	$scope.pname=response.data.projectName
 		    	$scope.powner=response.data.projectOwner
+		    	$scope.comment=response.data.comment
+		    	$scope.description=response.data.description
 		    	
 		    }
 		    );

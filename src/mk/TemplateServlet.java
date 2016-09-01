@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.alibaba.fastjson.*;
+import com.alibaba.fastjson.JSON;
 
 
 @SuppressWarnings("serial")
@@ -24,14 +24,67 @@ public class TemplateServlet extends HttpServlet {
 		} else if (action.equals("searchPName"))  {
 			searchByProjectName(req,resp);
 		} else if (action.equals("searchById")) {
-			searchById(req, resp);
+			
+			String module = req.getParameter("module");
+			
+			if (module != null) {
+				if (module.equals("ms")) {
+					getMileStones(req, resp);
+				} else if (module.equals("wf") ) {
+					getWorkFlow(req, resp);
+				}
+			} else {
+				searchById(req, resp);
+			}
+		} else if (action.equals("addms")) {
+			addMileStone(req,resp);
 		}
+	}
+
+	private void getWorkFlow(HttpServletRequest req, HttpServletResponse resp) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void getMileStones(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+		resp.setContentType("text/json");
+		
+		
+		String parameter = req.getParameter("q");
+		Long parameterInLong = Long.parseLong(parameter);
+		
+		if (parameter != null) {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			Query q = pm.newQuery(MileStone.class);
+		
+			q.setFilter("projectId == pNameParam");
+			q.setOrdering("name desc");
+			q.declareParameters("Long pNameParam");
+			
+			try {
+				
+			List<MileStone> results = (List<MileStone>) q.execute(parameterInLong);
+
+				if (!results.isEmpty()) {
+					String json = JSON.toJSONString(results);
+					resp.getWriter().print(json);
+					resp.getWriter().print(json);
+				}
+			 
+			} finally {
+			   pm.close();
+			}
+		}
+	
+		
 	}
 
 	private void addflow(HttpServletRequest req, HttpServletResponse resp) {
 		   PersistenceManager pm = PMF.get().getPersistenceManager();
 
-	        Project e = new Project(req.getParameter("pname"), req.getParameter("powner"), new Date());
+	        Project e = new Project(req.getParameter("pname"), req.getParameter("powner"), 
+	        		new Date(), req.getParameter("comment"), req.getParameter("des"));
 
 	        try {
 	            pm.makePersistent(e);
@@ -39,6 +92,26 @@ public class TemplateServlet extends HttpServlet {
 	            pm.close();
 	        }
 	        
+	}
+	
+	private void addMileStone(HttpServletRequest req, HttpServletResponse resp) {
+		   PersistenceManager pm = PMF.get().getPersistenceManager();
+
+	        MileStone e = new MileStone(
+	        		Long.parseLong(req.getParameter("projectId")),
+	        		req.getParameter("name"),
+	        		Integer.parseInt(req.getParameter("no")),
+					 Integer.parseInt(req.getParameter("modelOpen")),
+					 Integer.parseInt(req.getParameter("modelClosed")),
+					 Integer.parseInt(req.getParameter("rsOpen")),
+					 Integer.parseInt(req.getParameter("rsClosed")),
+	        		 Integer.parseInt(req.getParameter("duration")));
+
+	        try {
+	            pm.makePersistent(e);
+	        } finally {
+	            pm.close();
+	        }
 	}
 
 	private void searchByProjectName(HttpServletRequest req, HttpServletResponse resp) throws IOException {

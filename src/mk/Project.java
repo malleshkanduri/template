@@ -20,11 +20,27 @@ public class Project {
 	public String projectOwner;
 	@Persistent
 	public Date beginDate;
-
-public Project(String name, String owner, Date date) {
+	@Persistent
+	public String description;
+	@Persistent
+	public String comment;
+	
+public Project(String name, String owner, Date date, String com, String desc) {
 	  projectName = name;
 	  projectOwner = owner;
 	  beginDate = date;
+	  description = desc;
+	  comment = com;
+}
+
+
+public String getDescription() {
+	return description;
+}
+
+
+public String getComment() {
+	return comment;
 }
 
 
@@ -67,5 +83,4 @@ public void setBeginDate(Date beginDate) {
 	this.beginDate = beginDate;
 }
 
-  
 }

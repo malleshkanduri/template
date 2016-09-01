@@ -1,0 +1,11 @@
+<!-- Indices written at Wed, 31 Aug 2016 20:34:05 CDT -->
+
+<datastore-indexes>
+
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="MileStone" ancestor="false" source="auto">
+        <property name="projectId" direction="asc"/>
+        <property name="name" direction="desc"/>
+    </datastore-index>
+
+</datastore-indexes>
