@@ -33,7 +33,7 @@ workflowApp.config(function($routeProvider) {
         $scope.message = 'Everyone come and see how good I look!';
     });
     
-    workflowApp.controller('editController', function($scope, $http, $routeParams, $location, $timeout) {
+    workflowApp.controller('editController', function($scope, $http, $routeParams, $uibModal ,$location, $timeout) {
         $scope.pname="";
         $scope.powner="";
         $scope.description=""
@@ -51,6 +51,14 @@ workflowApp.config(function($routeProvider) {
         	  $scope.pname="";
               $scope.powner="";			
     	};
+    	
+    	$scope.popup = function() {
+				
+		var modalInstance = $uibModal.open({
+			templateUrl : 'popup.html'
+		});
+	}
+		
     	
     	$scope.save = function() {
             return $http.get('http://template-141501.appspot.com/template?action=add', {
