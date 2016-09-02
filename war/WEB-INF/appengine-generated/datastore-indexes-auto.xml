@@ -8,4 +8,9 @@
         <property name="name" direction="desc"/>
     </datastore-index>
 
+     <datastore-index kind="WorkFLow" ancestor="false" source="auto">
+        <property name="projectId" direction="asc"/>
+        <property name="name" direction="desc"/>
+    </datastore-index>
+    
 </datastore-indexes>

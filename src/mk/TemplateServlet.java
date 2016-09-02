@@ -38,12 +38,45 @@ public class TemplateServlet extends HttpServlet {
 			}
 		} else if (action.equals("addms")) {
 			addMileStone(req,resp);
+		} else if (action.equals("addwf")) {
+			addWorkFlow(req, resp);
 		}
 	}
 
-	private void getWorkFlow(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
+	private void getWorkFlow(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+
+		resp.setContentType("text/json");
 		
+		
+		String parameter = req.getParameter("q");
+		Long parameterInLong = Long.parseLong(parameter);
+		
+		if (parameter != null) {
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			Query q = pm.newQuery(WorkFlow.class);
+			//q.setFilter("projectId == pNameParam");
+			q.setOrdering("name desc");
+			//q.declareParameters("Long pNameParam");
+			
+			try {
+				
+			List<WorkFlow> results = (List<WorkFlow>) q.execute(parameterInLong);
+
+				if (!results.isEmpty()) {
+					String json = JSON.toJSONString(results);
+					resp.getWriter().print(json);
+				} else {
+					resp.getWriter().print("No Results");
+				}
+			 
+			} finally {
+			   pm.close();
+			}
+		}
+	
+		
+	
 	}
 
 	private void getMileStones(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -57,10 +90,9 @@ public class TemplateServlet extends HttpServlet {
 		if (parameter != null) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
 			Query q = pm.newQuery(MileStone.class);
-		
-			q.setFilter("projectId == pNameParam");
+			//q.setFilter("projectId == pNameParam");
 			q.setOrdering("name desc");
-			q.declareParameters("Long pNameParam");
+			//q.declareParameters("Long pNameParam");
 			
 			try {
 				
@@ -68,7 +100,6 @@ public class TemplateServlet extends HttpServlet {
 
 				if (!results.isEmpty()) {
 					String json = JSON.toJSONString(results);
-					resp.getWriter().print(json);
 					resp.getWriter().print(json);
 				} else {
 					resp.getWriter().print("No Results");
@@ -108,6 +139,28 @@ public class TemplateServlet extends HttpServlet {
 					 Integer.parseInt(req.getParameter("rsOpen")),
 					 Integer.parseInt(req.getParameter("rsClosed")),
 	        		 Integer.parseInt(req.getParameter("duration")));
+
+	        try {
+	            pm.makePersistent(e);
+	        } finally {
+	            pm.close();
+	        }
+	}
+	
+	private void addWorkFlow(HttpServletRequest req, HttpServletResponse resp) {
+		   PersistenceManager pm = PMF.get().getPersistenceManager();
+
+	        WorkFlow e = new WorkFlow(
+	        		Long.parseLong(req.getParameter("projectId")),
+	        		req.getParameter("name"),
+	        		Integer.parseInt(req.getParameter("no")),
+					 Integer.parseInt(req.getParameter("modelOpen")),
+					 Integer.parseInt(req.getParameter("modelClosed")),
+					 Integer.parseInt(req.getParameter("rsOpen")),
+					 Integer.parseInt(req.getParameter("rsClosed")),
+	        		 Integer.parseInt(req.getParameter("duration")),
+	        		 Integer.parseInt(req.getParameter("task")),
+	        		 req.getParameter("msname") );
 
 	        try {
 	            pm.makePersistent(e);
