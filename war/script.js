@@ -49,7 +49,8 @@ workflowApp.config(function($routeProvider) {
 
         $scope.clear = function() {
         	  $scope.pname="";
-              $scope.powner="";			
+              $scope.powner="";	
+			  $scope.displayGrid=false;			  
     	};
     	
     	$scope.popup = function() {
@@ -72,7 +73,7 @@ workflowApp.config(function($routeProvider) {
   		    }).then(function(response){
   		    	console.log(response);
 				$scope.recordSaved=true;
-				
+				$scope.displayGrid=true;
   		    	//$location.path('/')  			
   		    	}
   		    );
